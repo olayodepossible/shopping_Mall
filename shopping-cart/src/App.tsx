@@ -10,6 +10,8 @@ import  Badge  from "@material-ui/core/Badge";
 
 import { Wrapper } from "./App.styles";
 
+import Item from "./item/Item";
+
 export type CartItemType = {
   id: number;
   category: string;
@@ -29,19 +31,30 @@ const App = () => {
   // console.log(data);
 
   const getTotalItems = () => null;
-  const handleAddToCart = () => null;
+  const handleAddToCart = (clickedItem: CartItemType) => null;
   const handleRemoveFromCart = () => null;
 
   // if (isLoading) return <LinearProgress/>
   // if(error) return <div>Something went wrong, try again ...</div>
 
   return (
-    <div className="App" >
-      <div style={{ marginLeft: '50%', marginTop: '50vh'}}>
-        {isLoading && <CircularProgress color="secondary" />} 
-        {error && <div>Something went wrong, try again ...</div>} 
-        stat
+    <div className="App">
+      <div>
+        <h1>Product List</h1>
       </div>
+
+      <Wrapper >
+        {isLoading && <CircularProgress color="secondary" style={{ marginLeft: '50%', marginTop: '50vh'}}/>} 
+        {error && <div>Something went wrong, try again ...</div>} 
+        <Grid container spacing={3}>
+          {data?.map(item => (
+            <Grid item key={item.id} xs={12} sm={4}>
+              <Item item={item} handleAddToCart={handleAddToCart}/>
+            </Grid>
+          ))}
+
+        </Grid>
+    </Wrapper>
     </div>
   );
 }
